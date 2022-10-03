@@ -7,6 +7,7 @@ AllCops:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
+    - "spec/views/**/**"
 
   DisplayCopNames: true
 
@@ -58,3 +59,6 @@ Style/HashTransformKeys:
   Enabled: false
 Style/HashTransformValues:
   Enabled: false
+require:
+  - rubocop-rails
+  - rubocop-rspec
