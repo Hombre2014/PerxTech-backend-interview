@@ -59,6 +59,3 @@ Style/HashTransformKeys:
   Enabled: false
 Style/HashTransformValues:
   Enabled: false
-require:
-  - rubocop-rails
-  - rubocop-rspec
