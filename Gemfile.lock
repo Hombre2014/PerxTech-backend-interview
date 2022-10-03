@@ -233,9 +233,9 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4)
   rspec-rails (~> 5.0.1)
-  rubocop (>= 1.0, < 2.0)
-  rubocop-rails (>= 2.0, < 3.0)
-  rubocop-rspec (>= 2.4, < 3.0)
+  rubocop
+  rubocop-rails
+  rubocop-rspec
   sprockets-rails
   stimulus-rails
   tailwindcss-rails

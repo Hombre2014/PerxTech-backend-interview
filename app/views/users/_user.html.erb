@@ -1,0 +1,42 @@
+<div id="<%= dom_id user %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">First name:</strong>
+    <%= user.first_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Last name:</strong>
+    <%= user.last_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Birthday:</strong>
+    <%= user.birthday %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Country of origin:</strong>
+    <%= user.country_of_origin %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Level:</strong>
+    <%= user.level %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Points:</strong>
+    <%= user.points %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tier:</strong>
+    <%= user.tier %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this user', edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

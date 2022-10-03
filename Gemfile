@@ -69,6 +69,6 @@ group :development do
 end
 
 # Add rubocop
-gem 'rubocop', '>= 1.0', '< 2.0'
-gem 'rubocop-rails', '>= 2.0', '< 3.0'
-gem 'rubocop-rspec', '>= 2.4', '< 3.0'
+gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
+gem 'rubocop-rspec', require: false
