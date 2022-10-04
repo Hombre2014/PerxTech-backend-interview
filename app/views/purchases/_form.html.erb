@@ -1,4 +1,4 @@
-<%= form_with(model: purchase, class: "contents") do |form| %>
+<%= form_with(model: purchase, url: "/users/#{params[:user_id]}/purchases", class: "contents w-1/4") do |form| %>
   <% if purchase.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
@@ -26,7 +26,7 @@
     <%= form.text_field :amount, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <%= form.hidden_field :user_id %>
+  <%= form.hidden_field :user_id, value: 1 %>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>

@@ -8,5 +8,4 @@ class User < ApplicationRecord
   validates :level, presence: true, numericality: { greater_than: 0, less_than: 3 }, on: :create
   validates :points, presence: true, numericality: { greater_than_or_equal_to: 0 }, on: :create
   validates :tier, presence: true, length: { maximum: 8 }, on: :create
-  validates :user_id, presence: true, uniqueness: true, on: :create
 end

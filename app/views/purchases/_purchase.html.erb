@@ -15,8 +15,12 @@
   </p>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this purchase", purchase, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this purchase', edit_purchase_path(purchase), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Show this purchase", "/users/#{params[:user_id]}/purchases/#{purchase.id}", class: "rounded-lg py-3 px-5 bg-blue-100 inline-block font-medium" %>
+    <%
+=begin%>
+ <%= link_to 'Edit this purchase', edit_purchase_path(purchase), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %> 
+<%
+=end%>
     <hr class="mt-6">
   <% end %>
 </div>

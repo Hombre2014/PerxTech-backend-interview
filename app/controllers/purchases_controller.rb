@@ -7,7 +7,10 @@ class PurchasesController < ApplicationController
   end
 
   # GET /purchases/1 or /purchases/1.json
-  def show; end
+  def show
+    @user = User.find(params[:user_id])
+    @purchase = Purchase.where(user_id: params[:user_id], id: params[:id]).first
+  end
 
   # GET /purchases/new
   def new
@@ -23,7 +26,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to purchase_url(@purchase), notice: 'Purchase was successfully created.' }
+        format.html { redirect_to "/users/#{params[:user_id]}/purchases/#{params[:id]}", notice: 'Purchase was successfully created.' }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +39,7 @@ class PurchasesController < ApplicationController
   def update
     respond_to do |format|
       if @purchase.update(purchase_params)
-        format.html { redirect_to purchase_url(@purchase), notice: 'Purchase was successfully updated.' }
+        format.html { redirect_to user_purchase_path, notice: 'Purchase was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase }
       else
         format.html { render :edit, status: :unprocessable_entity }
