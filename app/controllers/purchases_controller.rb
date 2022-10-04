@@ -26,7 +26,10 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to "/users/#{params[:user_id]}/purchases/#{params[:id]}", notice: 'Purchase was successfully created.' }
+        format.html do
+          redirect_to "/users/#{params[:user_id]}/purchases/#{params[:id]}",
+                      notice: 'Purchase was successfully created.'
+        end
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new, status: :unprocessable_entity }
