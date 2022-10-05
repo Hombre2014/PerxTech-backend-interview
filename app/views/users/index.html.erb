@@ -19,11 +19,16 @@
           <th class="border border-slate-400 px-4 py-2">Level</th>
           <th class="border border-slate-400 px-4 py-2">Points</th>
           <th class="border border-slate-400 px-4 py-2">Tier</th>
+          <th class="border border-slate-400 px-4 py-2"># of purchases</th>
         </tr>
       </thead>
       <tbody>
         <%= render @users %>
       </body>
     </table>
+  </div>
+
+  <div>
+    <%= link_to 'All purchases', "/all_purchases" %>
   </div>
 </div>

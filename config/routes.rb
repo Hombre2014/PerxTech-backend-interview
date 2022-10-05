@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/all_purchases', to: 'purchases#all'
   resources :users, only: [:index, :show, :new, :create] do
     resources :purchases, only: [:index, :show, :new, :create]
   end

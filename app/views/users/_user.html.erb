@@ -7,5 +7,6 @@
     <td class="border border-slate-300 px-4"><%= user.level %></td>
     <td class="border border-slate-300 px-4"><%= user.points %></td>
     <td class="border border-slate-300 px-4"><%= user.tier %></td>
+    <td class="border border-slate-300 px-4"><%= link_to Purchase.where(user_id: user.id).count, "/users/#{user.id}/purchases" %></td>
   </tr>
 </div>

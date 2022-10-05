@@ -3,11 +3,6 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl mb-8">Purchases</h1>
-    <%= link_to 'New purchase', new_user_purchase_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
   <div id="transactions" class="min-w-full">
     <table class="table-auto mb-6 border-collapse border border-slate-400">
       <thead>
@@ -19,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-          <%= render @purchases_per_user %>
+          <%= render @purchases %>
       </tbody>
     </table>
   </div>
