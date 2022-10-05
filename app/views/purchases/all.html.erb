@@ -2,20 +2,8 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-
-  <div id="transactions" class="min-w-full">
-    <table class="table-auto mb-6 border-collapse border border-slate-400">
-      <thead>
-        <tr class="bg-slate-200">
-          <th class="border border-slate-400 px-4 py-2">Date</th>
-          <th class="border border-slate-400 px-4 py-2">User</th>
-          <th class="border border-slate-400 px-4 py-2">Country of purchase</th>
-          <th class="border border-slate-400 px-4 py-2">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-          <%= render @purchases %>
-      </tbody>
-    </table>
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl mb-8">All purchases</h1>
   </div>
+  <%= render 'table', :@purchases => @purchases %>
 </div>
