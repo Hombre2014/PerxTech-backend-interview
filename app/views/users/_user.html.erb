@@ -1,46 +1,20 @@
-<div id="<%= dom_id user %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">First name:</strong>
-    <%= user.first_name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Last name:</strong>
-    <%= user.last_name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Birthday:</strong>
-    <%= user.birthday %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Country of origin:</strong>
-    <%= user.country_of_origin %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Level:</strong>
-    <%= user.level %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Points:</strong>
-    <%= user.points %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Tier:</strong>
-    <%= user.tier %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%
-=begin%>
- <%= link_to 'Edit this user', edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %> 
-<%
-=end%>
-    <hr class="mt-6">
-  <% end %>
+<div id="<%= dom_id user %>" class="flex flex-col" %>
+  
+  <tr>
+    <td class="border border-slate-300 px-4"><%= link_to user.first_name, "users/#{user.id}" %></td>
+    <td class="border border-slate-300 px-4"><%= link_to user.last_name, "users/#{user.id}" %></td>
+    <td class="border border-slate-300 px-4"><%= user.country_of_origin %></td>
+    <td class="border border-slate-300 px-4"><%= user.birthday %></td>
+    <td class="border border-slate-300 px-4"><%= user.level %></td>
+    <td class="border border-slate-300 px-4"><%= user.points %></td>
+    <td class="border border-slate-300 px-4"><%= user.tier %></td>
+    <td class="border border-slate-300 px-4"><%= link_to Purchase.where(user_id: user.id).count, "/users/#{user.id}/purchases" %></td>
+  </tr>
+  <div>
+    <% if action_name != "index" %>
+      <p>Total amount spent: <%= @total_amount_spent %></p>
+      <p>Unused amount: <%= @unused_amount %></p>
+      <p>Points: <%= user.points %></p>
+    <% end %>
+  </div>
 </div>

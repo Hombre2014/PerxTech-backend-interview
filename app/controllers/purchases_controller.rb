@@ -3,7 +3,11 @@ class PurchasesController < ApplicationController
 
   # GET /purchases or /purchases.json
   def index
-    @purchases = Purchase.all
+    @purchases_per_user = Purchase.where(user_id: params[:user_id]).order(date: :asc)
+  end
+
+  def all
+    @purchases = Purchase.all.sort_by(&:date)
   end
 
   # GET /purchases/1 or /purchases/1.json
