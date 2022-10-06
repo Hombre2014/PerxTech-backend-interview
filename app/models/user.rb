@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :purchases, dependent: :destroy
+  has_many :rewards, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 12 }, on: :create
   validates :last_name, presence: true, length: { maximum: 24 }, on: :create

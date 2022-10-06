@@ -24,4 +24,19 @@ module UsersHelper
       points_per_purchase(user, purchase)
     end
   end
+
+  def if_rewards?(user)
+    if user.level == 1
+      @purchases_per_user.each do |purchase|
+        purchase_month = Purchase.where(user_id: user.id).where(purchase.date.mon).first
+        purchase_year = Purchase.where(user_id: user.id).where(purchase.date.year).first
+        if purchase_month == purchase.date.mon && purchase_year == purchase.date.year
+          points_per_purchase(user, purchase)
+          if user.point >= 100
+            
+          end
+        end
+      end
+    end
+  end
 end
