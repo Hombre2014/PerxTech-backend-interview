@@ -1,52 +1,25 @@
+require_relative '../helpers/users_helper'
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  include UsersHelper
 
-  def earning_points(user)
-    # user = User.find(params[:id])
-    # @purchases_per_user = Purchase.where(user_id: user.id) # .till_date!(Date.today)
-    # @purchases_per_user.each do |purchase|
-    #   @total_amount_spent += purchase.amount
-    #   @unused_amount += purchase.amount
-    #   if user.level == 1
-    #     if @unused_amount >= 100
-    #       user.points += @unused_amount.divmod(100)[0] * 10
-    #       @unused_amount = @unused_amount.divmod(100)[1]
-    #     end
-    #   elsif user.level == 2 && user.country_of_origin != purchase.country_of_purchase
-    #       user.points += @total_amount_spent.divmod(100)[0] * 20
-    #       @unused_amount = @unused_amount.divmod(100)[1]
-    #   end
-    # end
-    # return user.points
+  def initial_state
+    @total_amount_spent = 0
+    @unused_amount = 0
   end
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    initial_state
+    @users = User.includes(:purchases).all
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @total_amount_spent = 0
-    @unused_amount = 0
-    @user = User.find(params[:id])
-    @purchases_per_user = Purchase.where(user_id: @user.id) # .till_date!(Date.today)
-    @purchases_per_user.each do |purchase|
-      @total_amount_spent += purchase.amount
-      @unused_amount += purchase.amount
-      if @user.level == 1
-        if @unused_amount >= 100
-          @user.points += @unused_amount.divmod(100)[0] * 10
-          @unused_amount = @unused_amount.divmod(100)[1]
-        end
-      elsif @user.level == 2 && @user.country_of_origin != purchase.country_of_purchase
-        @user.points += @unused_amount.divmod(100)[0] * 20
-        @unused_amount = @unused_amount.divmod(100)[1]
-      else
-        @user.points += @unused_amount.divmod(100)[0] * 10
-        @unused_amount = @unused_amount.divmod(100)[1]
-      end
-    end
+    initial_state
+    @user = User.includes(:purchases).find(params[:id])
+    earning_points(@user)
   end
 
   # GET /users/new
