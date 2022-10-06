@@ -1,7 +1,8 @@
 <div id="<%= dom_id user %>" class="flex flex-col" %>
+  
   <tr>
-    <td class="border border-slate-300 px-4"><%= user.first_name %></td>
-    <td class="border border-slate-300 px-4"><%= user.last_name %></td>
+    <td class="border border-slate-300 px-4"><%= link_to user.first_name, "users/#{user.id}" %></td>
+    <td class="border border-slate-300 px-4"><%= link_to user.last_name, "users/#{user.id}" %></td>
     <td class="border border-slate-300 px-4"><%= user.country_of_origin %></td>
     <td class="border border-slate-300 px-4"><%= user.birthday %></td>
     <td class="border border-slate-300 px-4"><%= user.level %></td>
@@ -9,4 +10,11 @@
     <td class="border border-slate-300 px-4"><%= user.tier %></td>
     <td class="border border-slate-300 px-4"><%= link_to Purchase.where(user_id: user.id).count, "/users/#{user.id}/purchases" %></td>
   </tr>
+  <div>
+    <% if action_name != "index" %>
+      <p>Total amount spent: <%= @total_amount_spent %></p>
+      <p>Unused amount: <%= @unused_amount %></p>
+      <p>Points: <%= user.points %></p>
+    <% end %>
+  </div>
 </div>
