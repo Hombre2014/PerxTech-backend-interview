@@ -1,1 +1,1 @@
-json.array! @rewards, partial: "rewards/reward", as: :reward
+json.array! @rewards, partial: 'rewards/reward', as: :reward

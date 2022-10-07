@@ -1,5 +1,5 @@
 class RewardsController < ApplicationController
-  before_action :set_reward, only: %i[ show edit update destroy ]
+  before_action :set_reward, only: %i[show edit update destroy]
 
   # GET /rewards or /rewards.json
   def index
@@ -18,8 +18,7 @@ class RewardsController < ApplicationController
   end
 
   # GET /rewards/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /rewards or /rewards.json
   def create
@@ -27,7 +26,7 @@ class RewardsController < ApplicationController
 
     respond_to do |format|
       if @reward.save
-        format.html { redirect_to reward_url(@reward), notice: "Reward was successfully created." }
+        format.html { redirect_to reward_url(@reward), notice: 'Reward was successfully created.' }
         format.json { render :show, status: :created, location: @reward }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +39,7 @@ class RewardsController < ApplicationController
   def update
     respond_to do |format|
       if @reward.update(reward_params)
-        format.html { redirect_to reward_url(@reward), notice: "Reward was successfully updated." }
+        format.html { redirect_to reward_url(@reward), notice: 'Reward was successfully updated.' }
         format.json { render :show, status: :ok, location: @reward }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,19 +53,20 @@ class RewardsController < ApplicationController
     @reward.destroy
 
     respond_to do |format|
-      format.html { redirect_to rewards_url, notice: "Reward was successfully destroyed." }
+      format.html { redirect_to rewards_url, notice: 'Reward was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reward
-      @reward = Reward.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def reward_params
-      params.require(:reward).permit(:name, :date, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_reward
+    @reward = Reward.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def reward_params
+    params.require(:reward).permit(:name, :date, :user_id)
+  end
 end

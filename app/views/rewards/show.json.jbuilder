@@ -1,1 +1,1 @@
-json.partial! "rewards/reward", reward: @reward
+json.partial! 'rewards/reward', reward: @reward
