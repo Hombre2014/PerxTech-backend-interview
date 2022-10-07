@@ -87,13 +87,12 @@ module UsersHelper
       today_month = Date.today.mon
       user_age = Date.today.year - user.birthday.year
       unless user.birthday_reward
-        Reward.create(user_id: user.id, name: 'Birthday month reward. Received Free Coffee',
-                      date: user.birthday + (user_age - 1).years)
-        if month_of_birth > today_month
-        else
+        if month_of_birth < today_month
           Reward.create(user_id: user.id, name: 'Birthday month reward. Received Free Coffee',
                         date: user.birthday + user_age.years)
         end
+        Reward.create(user_id: user.id, name: 'Birthday month reward. Received Free Coffee',
+                      date: user.birthday + (user_age - 1).years)
         user.birthday_reward = true
         user.save
       end
