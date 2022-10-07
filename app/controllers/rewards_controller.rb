@@ -3,13 +3,13 @@ class RewardsController < ApplicationController
 
   # GET /rewards or /rewards.json
   def index
-    @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
+    @rewards = Reward.where(user_id: params[:id]).all.order(created_at: :desc)
   end
 
   # GET /rewards/1 or /rewards/1.json
   def show
-    # @user = User.find(params[:user_id])
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
+    @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
   end
 
   # GET /rewards/new
@@ -67,6 +67,6 @@ class RewardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reward_params
-      params.require(:reward).permit(:name)
+      params.require(:reward).permit(:name, :date, :user_id)
     end
 end

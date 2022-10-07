@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_140121) do
     t.date "date"
     t.string "country_of_purchase"
     t.decimal "amount"
+    t.boolean "counted"
+    t.boolean "processed_for_points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -26,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_140121) do
 
   create_table "rewards", force: :cascade do |t|
     t.string "name"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -40,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_140121) do
     t.integer "level"
     t.integer "points"
     t.string "tier"
+    t.boolean "birthday_reward"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

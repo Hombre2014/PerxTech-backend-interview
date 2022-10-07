@@ -1,12 +1,9 @@
 <div id="<%= dom_id reward %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= reward.name %>
-  </p>
+    <span>Reward: <%= reward.name %> </span>
+    <span>on <%= reward.date %></span>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this reward", reward, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this reward', edit_reward_path(reward), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Show this reward", user_reward_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
 </div>

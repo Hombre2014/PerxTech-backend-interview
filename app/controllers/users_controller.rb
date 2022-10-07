@@ -7,18 +7,25 @@ class UsersController < ApplicationController
   def initial_state
     @total_amount_spent = 0
     @unused_amount = 0
+    @total_amount_spent_foreign = 0
+    @unused_amount_foreign = 0
+    @points_per_month = 0
   end
 
   # GET /users or /users.json
   def index
-    initial_state
-    @users = User.includes(:purchases).all
+    @users = User.all
+    @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
+    @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
   end
 
   # GET /users/1 or /users/1.json
   def show
     initial_state
-    @user = User.includes(:purchases).find(params[:id])
+    rewards(@user)
+    @user = User.find(params[:id])
+    @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
+    @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
     earning_points(@user)
   end
 
@@ -33,7 +40,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+    earning_points(@user)
     respond_to do |format|
       if @user.save
         format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
@@ -77,6 +84,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :birthday, :country_of_origin, :level, :points, :tier)
+    params.require(:user).permit(:first_name, :last_name, :birthday, :country_of_origin, :level, :points, :tier, :birthday_reward)
   end
 end

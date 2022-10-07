@@ -5,4 +5,6 @@ class Purchase < ApplicationRecord
   validates :date, presence: true, on: :create
   validates :amount, presence: true, numericality: { greater_than: 0 }, on: :create
   validates :country_of_purchase, presence: true, on: :create
+  validates :counted, inclusion: { in: [true, false] }, on: :create
+  validates :processed_for_points, inclusion: { in: [true, false] }, on: :create
 end
