@@ -8,6 +8,8 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :level
       t.integer :points
       t.string :tier
+      t.boolean :birthday_reward
+      
 
       t.timestamps
     end
