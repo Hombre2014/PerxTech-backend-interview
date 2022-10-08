@@ -22,7 +22,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
-    # earning_points(@user)
   end
 
   # GET /users/new

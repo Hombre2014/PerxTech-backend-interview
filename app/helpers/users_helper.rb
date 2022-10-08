@@ -50,11 +50,26 @@ module UsersHelper
     end
   end
 
+  def check_5_percent_reward
+    @number_of_big_purchases = 0
+    @level_2_users = User.where(level: 2)
+    @level_2_users.each do |user|
+      @big_purchases = Purchase.where(user_id: user.id, amount: 100..400)
+      @big_purchases.each do |purchase|
+        @number_of_big_purchases += 1
+        if @number_of_big_purchases >= 10
+          @reward = Reward.new(user_id: user.id, date: purchase.date, name: '5% Cash Rebate')
+          @reward.save
+        end
+      end
+    end
+  end
+
   def check_spending_one_month(user, purchase, _purchase_month, _purchase_year)
     @points_per_month += points_per_purchase(user, purchase)
     return unless @points_per_month >= 100
 
-    Reward.create(user_id: user.id, name: 'Spent 100 points in a month. Received Free Coffee', date: purchase.date)
+    Reward.create(user_id: user.id, name: 'Accumulate 100 points in a month. Received Free Coffee', date: purchase.date)
     user.points -= 100
     user.save
     @points_per_month -= 100
