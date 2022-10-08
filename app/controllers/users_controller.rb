@@ -5,10 +5,6 @@ class UsersController < ApplicationController
   include UsersHelper
 
   def initial_state
-    @total_amount_spent = 0
-    @unused_amount = 0
-    @total_amount_spent_foreign = 0
-    @unused_amount_foreign = 0
     @points_per_month = 0
   end
 
@@ -26,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
-    earning_points(@user)
+    # earning_points(@user)
   end
 
   # GET /users/new
@@ -85,6 +81,7 @@ class UsersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:first_name, :last_name, :birthday, :country_of_origin, :level, :points, :tier,
-                                 :birthday_reward)
+                                 :birthday_reward, :total_amount_spent, :unused_amount, :total_amount_spent_foreign,
+                                 :unused_amount_foreign)
   end
 end

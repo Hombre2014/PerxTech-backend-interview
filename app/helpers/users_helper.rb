@@ -5,29 +5,33 @@ module UsersHelper
     @points_per_purchase = 0
     case user.level
     when 1
-      @total_amount_spent += purchase.amount
-      @unused_amount += purchase.amount
-      if @unused_amount >= 100
-        user.points += @unused_amount.divmod(100)[0] * 10
+      user.total_amount_spent += purchase.amount
+      user.unused_amount += purchase.amount
+      user.save
+      if user.unused_amount >= 100
+        user.points += user.unused_amount.divmod(100)[0] * 10
         user.save
-        @points_per_purchase += @unused_amount.divmod(100)[0] * 10
-        @unused_amount = @unused_amount.divmod(100)[1]
+        @points_per_purchase += user.unused_amount.divmod(100)[0] * 10
+        user.unused_amount = user.unused_amount.divmod(100)[1]
+        user.save
       end
     when 2
       if user.country_of_origin == purchase.country_of_purchase
-        @total_amount_spent += purchase.amount
-        @unused_amount += purchase.amount
-        user.points += @unused_amount.divmod(100)[0] * 10
+        user.total_amount_spent += purchase.amount
+        user.unused_amount += purchase.amount
+        user.points += user.unused_amount.divmod(100)[0] * 10
         user.save
-        @points_per_purchase += @unused_amount.divmod(100)[0] * 10
-        @unused_amount = @unused_amount.divmod(100)[1]
+        @points_per_purchase += user.unused_amount.divmod(100)[0] * 10
+        user.unused_amount = user.unused_amount.divmod(100)[1]
+        user.save
       else
-        @total_amount_spent_foreign += purchase.amount
-        @unused_amount_foreign += purchase.amount
-        user.points += @unused_amount_foreign.divmod(100)[0] * 20
+        user.total_amount_spent_foreign += purchase.amount
+        user.unused_amount_foreign += purchase.amount
+        user.points += user.unused_amount_foreign.divmod(100)[0] * 20
         user.save
-        @points_per_purchase += @unused_amount_foreign.divmod(100)[0] * 20
-        @unused_amount_foreign = @unused_amount_foreign.divmod(100)[1]
+        @points_per_purchase += user.unused_amount_foreign.divmod(100)[0] * 20
+        user.unused_amount_foreign = user.unused_amount_foreign.divmod(100)[1]
+        user.save
       end
     else
       puts 'No points'
@@ -83,6 +87,7 @@ module UsersHelper
         purchase_year = purchase.date.year
       end
     when 2
+      earning_points(user)
       month_of_birth = user.birthday.mon
       today_month = Date.today.mon
       user_age = Date.today.year - user.birthday.year

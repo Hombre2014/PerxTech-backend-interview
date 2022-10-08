@@ -13,35 +13,34 @@
   <% end %>
   <div>
     <% if action_name != "index" %>
-      <%= link_to "Get the latest points and Rewrads", user_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <p>First name: <%= user.first_name %></p>
       <p>Last name: <%= user.last_name %></p>
       <p>Country of origin: <%= user.country_of_origin %></p>
       <% if user.level == 1 %>
-        <p>Total amount spent: <%= @total_amount_spent %></p>
-        <p>Unused amount: <%= @unused_amount %></p>
+        <p>Total amount spent: <%= user.total_amount_spent %></p>
+        <p>Unused amount: <%= user.unused_amount %></p>
       <% end %>
 
       <p>Number of purchases: <%= Purchase.where(user_id: user.id).count %></p>
       <% if user.level == 2 %>
         <p>Number of purchases in own country: <%= Purchase.where(user_id: user.id, country_of_purchase: user.country_of_origin).count %></p>
         <p>Number of purchases in foreign country: <%= Purchase.where(user_id: user.id).where.not(country_of_purchase: user.country_of_origin).count %></p>
-        <p>Total amount spent in own country: <%= @total_amount_spent %></p>
-        <p>Total amount spent in foreign country: <%= @total_amount_spent_foreign %></p>
-        <p>Total amount spent: <%= @total_amount_spent + @total_amount_spent_foreign %></p>
-        <p>Unused amount: <%= @unused_amount + @unused_amount_foreign %></p>
-        <p>Unused amount in own country: <%= @unused_amount %></p>
-        <p>Unused amount in foreign country: <%= @unused_amount_foreign %></p>
-        <p>Rewards:</p>
-        <div>
-          <% rewards_per_user = Reward.where(user_id: user.id) %>
-          <% rewards_per_user.each do |reward| %>
-            <span><%= reward.name %>.</span>
-            <span> Received on: <%= reward.date %></span>
-            <br>
-          <% end %>
-        </div>
+        <p>Total amount spent in own country: <%= user.total_amount_spent %></p>
+        <p>Total amount spent in foreign country: <%= user.total_amount_spent_foreign %></p>
+        <p>Total amount spent: <%= user.total_amount_spent + user.total_amount_spent_foreign %></p>
+        <p>Unused amount: <%= user.unused_amount + user.unused_amount_foreign %></p>
+        <p>Unused amount in own country: <%= user.unused_amount %></p>
+        <p>Unused amount in foreign country: <%= user.unused_amount_foreign %></p>
       <% end %>
+      <p>Rewards:</p>
+      <div>
+        <% rewards_per_user = Reward.where(user_id: user.id) %>
+        <% rewards_per_user.each do |reward| %>
+          <span><%= reward.name %>.</span>
+          <span> Received on: <%= reward.date %></span>
+          <br>
+        <% end %>
+      </div>
       <p>Points: <%= user.points %></p>
       <p>Level: <%= user.level %></p>
       <p>Tier: <%= user.tier %></p>

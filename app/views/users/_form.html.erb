@@ -46,6 +46,12 @@
     <%= form.text_field :tier, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <%= formf.hidden_field :birthday_reward, value: false >
+  <%= formf.hidden_field :total_amount_spent, value: 0 >
+  <%= formf.hidden_field :total_amount_spent_foreign, value: 0 >
+  <%= formf.hidden_field :unused_amount, value: 0 >
+  <%= formf.hidden_field :unused_amount_foreign, value: 0 >
+
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>

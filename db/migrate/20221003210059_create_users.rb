@@ -9,6 +9,10 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :points
       t.string :tier
       t.boolean :birthday_reward
+      t.decimal :total_amount_spent
+      t.decimal :total_amount_spent_foreign
+      t.decimal :unused_amount
+      t.decimal :unused_amount_foreign
       
 
       t.timestamps
