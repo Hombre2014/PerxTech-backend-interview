@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
   end
 
   def all
-    @purchases = Purchase.all.sort_by(&:date)
+    @purchases = Purchase.all.order(date: :asc)
   end
 
   # GET /purchases/1 or /purchases/1.json
@@ -74,6 +74,7 @@ class PurchasesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def purchase_params
-    params.require(:purchase).permit(:date, :country_of_purchase, :amount, :user_id, :counted, :processed_for_points)
+    params.require(:purchase).permit(:date, :country_of_purchase, :amount, :user_id, :counted, :processed_for_points,
+                                     :checked_for_5_percent_rewards, :checked_for_free_movie_tickets_rewards)
   end
 end

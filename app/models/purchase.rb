@@ -7,4 +7,6 @@ class Purchase < ApplicationRecord
   validates :country_of_purchase, presence: true, on: :create
   validates :counted, inclusion: { in: [true, false] }, on: :create
   validates :processed_for_points, inclusion: { in: [true, false] }, on: :create
+  validates :checked_for_5_percent_rewards, inclusion: { in: [true, false] }, on: :create
+  validates :checked_for_free_movie_tickets, inclusion: { in: [true, false] }, on: :create
 end

@@ -6,6 +6,9 @@ class CreatePurchases < ActiveRecord::Migration[7.0]
       t.decimal :amount
       t.boolean :counted
       t.boolean :processed_for_points
+      t.boolean :checked_for_5_percent_rewards
+      t.boolean :checked_for_free_movie_tickets
+      
 
       t.timestamps
     end

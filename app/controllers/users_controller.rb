@@ -1,16 +1,21 @@
 require_relative '../helpers/users_helper'
+require_relative '../helpers/rewards_helper'
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   include UsersHelper
+  include RewardsHelper
 
   def initial_state
     @points_per_month = 0
+    @number_of_big_purchases = 0
+    @total_amount_for_movie_tickets = 0
+    @free_movie_tickets = false
   end
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.all.order(id: :asc)
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
   end
@@ -18,10 +23,13 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     initial_state
-    rewards(@user)
     @user = User.find(params[:id])
+    @users_level_two = User.where(level: 2).all
+    rewards(@user)
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
+    check_5_percent_reward
+    free_movie_tickets_reward(@users_level_two)
   end
 
   # GET /users/new
