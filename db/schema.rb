@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_140121) do
     t.decimal "amount"
     t.boolean "counted"
     t.boolean "processed_for_points"
+    t.boolean "checked_for_5_percent_rewards"
+    t.boolean "checked_for_free_movie_tickets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
