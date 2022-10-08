@@ -23,7 +23,6 @@ module UsersHelper
         user.save
         @points_per_purchase += user.unused_amount.divmod(100)[0] * 10
         user.unused_amount = user.unused_amount.divmod(100)[1]
-        user.save
       else
         user.total_amount_spent_foreign += purchase.amount
         user.unused_amount_foreign += purchase.amount
@@ -31,8 +30,8 @@ module UsersHelper
         user.save
         @points_per_purchase += user.unused_amount_foreign.divmod(100)[0] * 20
         user.unused_amount_foreign = user.unused_amount_foreign.divmod(100)[1]
-        user.save
       end
+      user.save
     else
       puts 'No points'
     end
@@ -47,21 +46,6 @@ module UsersHelper
       points_per_purchase(user, purchase)
       purchase.processed_for_points = true
       purchase.save
-    end
-  end
-
-  def check_5_percent_reward
-    @number_of_big_purchases = 0
-    @level_2_users = User.where(level: 2)
-    @level_2_users.each do |user|
-      @big_purchases = Purchase.where(user_id: user.id, amount: 100..400)
-      @big_purchases.each do |purchase|
-        @number_of_big_purchases += 1
-        if @number_of_big_purchases >= 10
-          @reward = Reward.new(user_id: user.id, date: purchase.date, name: '5% Cash Rebate')
-          @reward.save
-        end
-      end
     end
   end
 
