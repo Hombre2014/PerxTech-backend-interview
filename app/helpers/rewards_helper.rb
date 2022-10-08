@@ -19,8 +19,8 @@ module RewardsHelper
   end
 
   def free_movie_tickets_reward(users_level_two)
-    @total_amount_for_movie_tickets = 0
     users_level_two.each do |user|
+      @total_amount_for_movie_tickets = 0
       first_purchase = Purchase.where(user_id: user.id).order(date: :asc).first
       first_purchase_date = first_purchase.date
       all_purchases_within_2_months =
@@ -31,16 +31,12 @@ module RewardsHelper
 
         @total_amount_for_movie_tickets += purchase.amount
         if @total_amount_for_movie_tickets >= 1000
-          Reward.create(user_id: user.id, date: purchase.date, name: 'Free Movie Tickets')
+          @free_movie_tickets = Reward.create(user_id: user.id, date: purchase.date, name: 'Free Movie Tickets')
           @total_amount_for_movie_tickets = 0
           purchase.checked_for_free_movie_tickets = true
           purchase.save
-          break
         end
-        user_with_reward = User.joins(:rewards).where('rewards.name = ?', 'Free Movie Tickets').all
-        user_with_reward.each do |user|
-          break if user.id == purchase.user_id
-        end
+        break if @free_movie_tickets
       end
     end
   end

@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @points_per_month = 0
     @number_of_big_purchases = 0
     @total_amount_for_movie_tickets = 0
+    @free_movie_tickets = false
   end
 
   # GET /users or /users.json
