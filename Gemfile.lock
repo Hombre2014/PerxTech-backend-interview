@@ -78,6 +78,8 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     erubi (1.11.0)
+    faker (2.23.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -227,15 +229,16 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  faker
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
   rspec-rails (~> 5.0.1)
-  rubocop (>= 1.0, < 2.0)
-  rubocop-rails (>= 2.0, < 3.0)
-  rubocop-rspec (>= 2.4, < 3.0)
+  rubocop
+  rubocop-rails
+  rubocop-rspec
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
