@@ -1,7 +1,7 @@
 module UsersHelper
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
-  def check_for_tier_level(user)
+  def check_for_tier_change_level_one(user)
     if user.points >= 1000 && user.points < 5000
       user.tier = 'Gold'
       user.save
@@ -9,6 +9,37 @@ module UsersHelper
       user.tier = 'Platinum'
       user.save
     end
+  end
+
+  def purchases_per_user_per_quarter(user, purchase)
+    # quarter = (purchase.date.beginning_of_quarter..purchase.date.end_of_quarter)
+    quarter_number = (purchase.date.month / 3.0).ceil
+    year = purchase.date.year
+    if (purchase.date.month / 3.0).ceil == quarter_number && purchase.date.year == year
+      @spending_per_quarter += purchase.amount
+    end
+    return unless @spending_per_quarter >= 2000
+
+    user.points += 100
+    user.save
+    @spending_per_quarter = 0
+  end
+
+  def check_for_tier_change_level_two(user, purchase)
+    if user.tier == 'Standard' && user.points >= 1000 && user.points < 5000
+      user.tier = 'Gold'
+      Reward.create(user_id: user.id, date: purchase.date, name: '4x Airport Lounge Access')
+      user.save
+    elsif user.tier == 'Gold' && user.points >= 5000
+      user.tier = 'Platinum'
+      user.save
+    end
+  end
+
+  def first_purchase_year(user)
+    # purchases_per_user = Purchase.where(user_id: user.id).order(date: :asc)
+    @purchase_year = Purchase.where(user_id: user.id).order(date: :asc).first.date.year
+    # @purchase_month = Purchase.where(user_id: user.id).order(date: :asc).first.date.month
   end
 
   def points_per_purchase(user, purchase)
@@ -21,12 +52,18 @@ module UsersHelper
       if user.unused_amount >= 100
         user.points += user.unused_amount.divmod(100)[0] * 10
         user.save
-        check_for_tier_level(user)
         @points_per_purchase += user.unused_amount.divmod(100)[0] * 10
         user.unused_amount = user.unused_amount.divmod(100)[1]
         user.save
       end
+      check_for_tier_change_level_one(user)
     when 2
+      @purchase_year = first_purchase_year(user)
+      if purchase.date.year == @purchase_year + 1
+        user.points = 0
+        user.save
+        @purchase_year += 1
+      end
       if user.country_of_origin == purchase.country_of_purchase
         user.total_amount_spent += purchase.amount
         user.unused_amount += purchase.amount
@@ -43,6 +80,8 @@ module UsersHelper
         user.unused_amount_foreign = user.unused_amount_foreign.divmod(100)[1]
       end
       user.save
+      check_for_tier_change_level_two(user, purchase)
+      purchases_per_user_per_quarter(user, purchase)
     else
       puts 'No points'
     end
@@ -73,6 +112,7 @@ module UsersHelper
   def rewards(user)
     case user.level
     when 1
+      # first_purchase_year(user)
       purchases_per_user = Purchase.where(user_id: user.id).order(date: :asc)
       purchase_month = purchases_per_user.first.date.mon
       purchase_year = purchases_per_user.first.date.year
