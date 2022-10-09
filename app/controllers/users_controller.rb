@@ -11,10 +11,13 @@ class UsersController < ApplicationController
     @number_of_big_purchases = 0
     @total_amount_for_movie_tickets = 0
     @free_movie_tickets = false
+    @spending_per_quarter = 0
+    @year_of_purchase = 2020
   end
 
   # GET /users or /users.json
   def index
+    initial_state
     @users = User.all.order(id: :asc)
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)
