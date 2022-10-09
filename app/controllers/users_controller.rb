@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
+    initial_state
     @users = User.all.order(id: :asc)
     @reward = Reward.where(user_id: params[:user_id], id: params[:id]).first
     @rewards = Reward.where(user_id: params[:user_id]).all.order(created_at: :desc)

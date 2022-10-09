@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module UsersHelper
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
@@ -93,7 +94,7 @@ module UsersHelper
     end
   end
 
-  def check_spending_one_month(user, purchase, purchase_month, purchase_year)
+  def check_spending_one_month(user, purchase)
     @points_per_month += points_per_purchase(user, purchase)
     return unless @points_per_month >= 100
 
@@ -113,14 +114,14 @@ module UsersHelper
       purchases_per_user.each do |purchase|
         unless purchase.counted
           if purchase_month == purchase.date.mon && purchase_year == purchase.date.year
-            check_spending_one_month(user, purchase, purchase_month, purchase_year)
+            check_spending_one_month(user, purchase)
           else
             @points_per_month = 0
             purchase_month = purchase.date.mon
             purchase_year = purchase.date.year
             # rubocop:disable Metrics/BlockNesting
             if purchase_month == purchase.date.mon && purchase_year == purchase.date.year
-              check_spending_one_month(user, purchase, purchase_month, purchase_year)
+              check_spending_one_month(user, purchase)
             end
             # rubocop:enable Metrics/BlockNesting
           end
@@ -153,4 +154,5 @@ module UsersHelper
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/ModuleLength
 end
