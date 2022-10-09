@@ -36,16 +36,8 @@
     <%= form.number_field :level, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :points %>
-    <%= form.number_field :points, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :tier %>
-    <%= form.text_field :tier, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
+  <%= form.hidden_field :points, value: 0 %>
+  <%= form.hidden_field :tier, value: 'Standard' %>
   <%= form.hidden_field :birthday_reward, value: false %>
   <%= form.hidden_field :total_amount_spent, value: 0 %>
   <%= form.hidden_field :total_amount_spent_foreign, value: 0 %>

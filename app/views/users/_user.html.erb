@@ -1,8 +1,8 @@
 <div id="<%= dom_id user %>" class="flex flex-col" %>
+  <% user_name = user.first_name + ' ' + user.last_name %>
   <% if action_name != "show" %>
     <tr>
-      <td class="border border-slate-300 px-4"><%= link_to user.first_name, "users/#{user.id}" %></td>
-      <td class="border border-slate-300 px-4"><%= link_to user.last_name, "users/#{user.id}" %></td>
+      <td class="border border-slate-300 px-4"><%= link_to user_name, "users/#{user.id}" %></td>
       <td class="border border-slate-300 px-4"><%= user.country_of_origin %></td>
       <td class="border border-slate-300 px-4"><%= user.birthday %></td>
       <td class="border border-slate-300 px-4"><%= user.level %></td>
