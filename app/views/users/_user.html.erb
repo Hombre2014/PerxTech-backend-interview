@@ -2,13 +2,13 @@
   <% user_name = user.first_name + ' ' + user.last_name %>
   <% if action_name != "show" %>
     <tr>
-      <td class="border border-slate-300 px-4"><%= link_to user_name, "users/#{user.id}" %></td>
+      <td class="border border-slate-300 px-4 py-3 px-5 bg-blue-600 text-white font-medium"><%= link_to user_name, "users/#{user.id}" %></td>
       <td class="border border-slate-300 px-4"><%= user.country_of_origin %></td>
       <td class="border border-slate-300 px-4"><%= user.birthday %></td>
       <td class="border border-slate-300 px-4"><%= user.level %></td>
       <td class="border border-slate-300 px-4"><%= user.points %></td>
       <td class="border border-slate-300 px-4"><%= user.tier %></td>
-      <td class="border border-slate-300 px-4"><%= link_to Purchase.where(user_id: user.id).count, "/users/#{user.id}/purchases" %></td>
+      <td class="border border-slate-300 px-4 py-3 px-5 bg-blue-600 text-white font-medium"><%= link_to Purchase.where(user_id: user.id).count, "/users/#{user.id}/purchases" %></td>
     </tr>
   <% end %>
   <div>
