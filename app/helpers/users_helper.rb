@@ -36,12 +36,6 @@ module UsersHelper
     end
   end
 
-  def first_purchase_year(user)
-    purchases_per_user = Purchase.where(user_id: user.id).order(date: :asc).all
-    @purchase_year = Purchase.where(user_id: user.id).order(date: :asc).first.date.year
-    # @purchase_month = Purchase.where(user_id: user.id).order(date: :asc).first.date.month
-  end
-
   def points_per_purchase(user, purchase)
     @points_per_purchase = 0
     case user.level
@@ -99,13 +93,13 @@ module UsersHelper
     end
   end
 
-  def check_spending_one_month(user, purchase, _purchase_month, _purchase_year)
+  def check_spending_one_month(user, purchase, purchase_month, purchase_year)
     @points_per_month += points_per_purchase(user, purchase)
     return unless @points_per_month >= 100
 
     Reward.create(user_id: user.id, name: 'Accumulate 100 points in a month. Received Free Coffee', date: purchase.date)
-    user.points -= 100
-    user.save
+    # user.points -= 100 # this is needed if points are consumed for rewards
+    # user.save
     @points_per_month -= 100
   end
 
