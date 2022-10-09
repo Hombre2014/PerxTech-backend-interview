@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @total_amount_for_movie_tickets = 0
     @free_movie_tickets = false
     @spending_per_quarter = 0
+    @year_of_purchase = 2020
   end
 
   # GET /users or /users.json

@@ -37,7 +37,7 @@ module UsersHelper
   end
 
   def first_purchase_year(user)
-    # purchases_per_user = Purchase.where(user_id: user.id).order(date: :asc)
+    purchases_per_user = Purchase.where(user_id: user.id).order(date: :asc).all
     @purchase_year = Purchase.where(user_id: user.id).order(date: :asc).first.date.year
     # @purchase_month = Purchase.where(user_id: user.id).order(date: :asc).first.date.month
   end
@@ -58,11 +58,11 @@ module UsersHelper
       end
       check_for_tier_change_level_one(user)
     when 2
-      @purchase_year = first_purchase_year(user)
-      if purchase.date.year == @purchase_year + 1
+      # past_purchase_year = first_purchase_year(user)
+      if purchase.date.year == @year_of_purchase + 1
         user.points = 0
         user.save
-        @purchase_year += 1
+        @year_of_purchase += 1
       end
       if user.country_of_origin == purchase.country_of_purchase
         user.total_amount_spent += purchase.amount
