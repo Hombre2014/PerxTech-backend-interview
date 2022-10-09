@@ -22,7 +22,7 @@ You are expected to create a git repository (in github or equivalent) and share 
 
 ## Live demo
 
-THe site is deployed using Heroku [here]()
+THe site is deployed using [Railway](https://railway.app/) services. [Live demo](https://perxtech-backend-interview-production.up.railway.app/users)
 
 ## Built With
 
