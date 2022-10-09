@@ -1,6 +1,16 @@
 module UsersHelper
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
+  def check_for_tier_level(user)
+    if user.points >= 1000 && user.points < 5000
+      user.tier = 'Gold'
+      user.save
+    elsif user.points >= 5000
+      user.tier = 'Platinum'
+      user.save
+    end
+  end
+
   def points_per_purchase(user, purchase)
     @points_per_purchase = 0
     case user.level
@@ -11,6 +21,7 @@ module UsersHelper
       if user.unused_amount >= 100
         user.points += user.unused_amount.divmod(100)[0] * 10
         user.save
+        check_for_tier_level(user)
         @points_per_purchase += user.unused_amount.divmod(100)[0] * 10
         user.unused_amount = user.unused_amount.divmod(100)[1]
         user.save
