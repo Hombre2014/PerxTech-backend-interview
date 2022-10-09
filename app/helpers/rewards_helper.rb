@@ -27,7 +27,8 @@ module RewardsHelper
         Purchase.where(user_id: user.id, date:
           first_purchase_date..(first_purchase_date + 60.days)).order(date: :asc).all
       all_purchases_within_2_months.each do |purchase|
-        unless purchase.checked_for_free_movie_tickets
+        # rubocop:disable Style/NegatedIf
+        if !purchase.checked_for_free_movie_tickets
           @total_amount_for_movie_tickets += purchase.amount
           if @total_amount_for_movie_tickets >= 1000
             @free_movie_tickets = Reward.create(user_id: user.id, date: purchase.date, name: 'Free Movie Tickets').save
@@ -37,6 +38,7 @@ module RewardsHelper
           purchase.save
         end
         break if @free_movie_tickets
+        # rubocop:enable Style/NegatedIf
       end
       break if @free_movie_tickets
     end
