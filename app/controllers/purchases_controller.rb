@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
-  before_action :set_purchase, only: %i[show edit update destroy]
+  before_action :set_purchase, only: %i[show edit]
 
   # GET /purchases or /purchases.json
   def index
@@ -22,7 +22,7 @@ class PurchasesController < ApplicationController
   end
 
   # GET /purchases/1/edit
-  def edit; end
+  # def edit; end
 
   # POST /purchases or /purchases.json
   def create
@@ -43,27 +43,27 @@ class PurchasesController < ApplicationController
   end
 
   # PATCH/PUT /purchases/1 or /purchases/1.json
-  def update
-    respond_to do |format|
-      if @purchase.update(purchase_params)
-        format.html { redirect_to user_purchase_path, notice: 'Purchase was successfully updated.' }
-        format.json { render :show, status: :ok, location: @purchase }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @purchase.update(purchase_params)
+  #       format.html { redirect_to user_purchase_path, notice: 'Purchase was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @purchase }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @purchase.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /purchases/1 or /purchases/1.json
-  def destroy
-    @purchase.destroy
+  # def destroy
+  #   @purchase.destroy
 
-    respond_to do |format|
-      format.html { redirect_to purchases_url, notice: 'Purchase was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to purchases_url, notice: 'Purchase was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
 
