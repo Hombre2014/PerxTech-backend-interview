@@ -7,4 +7,5 @@
     <%= link_to 'New purchase', new_user_purchase_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
   <%= render 'table', :@purchases => @purchases_per_user %>
+  <%= link_to 'Back to users', users_path, class: "rounded-lg py-3 px-5 bg-blue-600 inline-block text-white font-medium mt-3" %>
 </div>
