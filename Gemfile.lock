@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: adda481ac5bbc7f79893fb09de0f52bcb6099ba5
+  branch: main
+  specs:
+    faker (2.23.0)
+      i18n (>= 1.8.11, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,8 +86,6 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     erubi (1.11.0)
-    faker (2.23.0)
-      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -229,7 +235,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
-  faker
+  faker!
   importmap-rails
   jbuilder
   pg (~> 1.1)
